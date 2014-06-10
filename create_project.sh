@@ -42,51 +42,16 @@ function get_information_project () {
     # ---------------------------------------------------------------- #
     # Choice technologie
     # ---------------------------------------------------------------- #
-    cecho "Choix de la technologie du projet (ex: typo3): " $COLOR_BLUE;
-    select CHOICE_TECHNOLOGY in typo3 sortir
-    do
-        case $CHOICE_TECHNOLOGY in
-            typo3)
-                DUMMY_PROJECT_PATH_DUMMY=$TYPO3_PATH_DUMMY;
-                DUMMY_PROJECT_DB_NAME=$TYPO3_DB_NAME;
-                DUMMY_PROJECT_DOMAIN=$TYPO3_DOMAIN;
-                break
-            ;;
-            sortir)
-                die;
-                break
-            ;;
-            *)
-                cecho "Un choix de la liste SVP" $COLOR_RED;
-            ;;
-        esac
-    done
+    case $CHOICE_TECHNOLOGY in
+        typo3)
+            DUMMY_PROJECT_PATH_DUMMY=$TYPO3_PATH_DUMMY;
+            DUMMY_PROJECT_DB_NAME=$TYPO3_DB_NAME;
+            DUMMY_PROJECT_DOMAIN=$TYPO3_DOMAIN;
+        ;;
+    esac
 
     TECHNOLOGY_UP_CASE=`echo $CHOICE_TECHNOLOGY | tr '[:lower:]' '[:upper:]'`;
     TECHNOLOGY_LOW_CASE=`echo $CHOICE_TECHNOLOGY | tr '[:upper:]' '[:lower:]'`;
-
-    cecho "\n" $COLOR_WHITE;
-
-    # ---------------------------------------------------------------- #
-    # Project name
-    # ---------------------------------------------------------------- #
-    cecho "Entrer le nom du projet " $COLOR_BLUE -n;
-    cecho "([a-zA-Z0-9])" $COLOR_YELLOW -n;
-    cecho ": " $COLOR_BLUE -n;
-
-    while read CREATE_PROJECT_NAME;
-    do
-        if [[ $CREATE_PROJECT_NAME =~ [[:alnum:]] ]]; then
-            break;
-        else
-            cecho "Entrer le nom du projet " $COLOR_BLUE -n;
-            cecho "([a-zA-Z0-9])" $COLOR_YELLOW -n;
-            cecho "(OBLIGATOIRE)" $COLOR_RED -n;
-            cecho ": " $COLOR_BLUE -n;
-        fi
-    done
-
-    cecho "\n" $COLOR_WHITE;
 
     # ---------------------------------------------------------------- #
     # Project folder name
@@ -146,7 +111,6 @@ function valid_information_project () {
     cecho "   - nom de domaine    : $DUMMY_PROJECT_DOMAIN" $COLOR_WHITE;
     cecho "--------------------------------------------------------------------------" $COLOR_WHITE;
     cecho " Nouveau projet :" $COLOR_WHITE;
-    cecho "   - nom du projet     : $CREATE_PROJECT_NAME" $COLOR_WHITE;
     cecho "   - dossier           : $CREATE_PROJECT_FOLDER" $COLOR_WHITE;
     cecho "   - chemin du dossier : $CREATE_PROJECT_PATH" $COLOR_WHITE;
     cecho "   - nom de la BDD     : $CREATE_PROJECT_DB_NAME" $COLOR_WHITE;
@@ -192,7 +156,7 @@ function create_project () {
     # ---------------------------------------------------------------- #
     # Copy of the dummy
     # ---------------------------------------------------------------- #
-    rsync -avz $DUMMY_PROJECT_PATH_DUMMY $CREATE_PROJECT_PATH;
+    rsync -avzP $DUMMY_PROJECT_PATH_DUMMY $CREATE_PROJECT_PATH;
 
     # ---------------------------------------------------------------- #
     # Dump mysql DB dummy
@@ -234,8 +198,7 @@ function create_project () {
     # ---------------------------------------------------------------- #
     FILE_HOSTS=`cat /etc/hosts | grep "$CREATE_PROJECT_DOMAIN"`;
 
-    if [ -z "$FILE_HOSTS" ]
-    then
+    if [ -z "$FILE_HOSTS" ]; then
         echo "127.0.0.1 $CREATE_PROJECT_DOMAIN" >> /etc/hosts;
     fi
 }
@@ -254,11 +217,16 @@ function information_project () {
     cecho " Technologie           : $TECHNOLOGY_LOW_CASE" $COLOR_WHITE;
     cecho "--------------------------------------------------------------------------" $COLOR_WHITE;
     cecho " Nouveau projet :" $COLOR_WHITE;
-    cecho "   - nom du projet     : $CREATE_PROJECT_NAME" $COLOR_WHITE;
     cecho "   - dossier           : $CREATE_PROJECT_FOLDER" $COLOR_WHITE;
     cecho "   - chemin du dossier : $CREATE_PROJECT_PATH" $COLOR_WHITE;
     cecho "   - nom de la BDD     : $CREATE_PROJECT_DB_NAME" $COLOR_WHITE;
     cecho "   - nom de domaine    : $CREATE_PROJECT_DOMAIN" $COLOR_WHITE;
+    if [ ! -z "$SERVER_VHOST" ]; then
+        cecho "--------------------------------------------------------------------------" $COLOR_WHITE;
+        cecho " VHost " $COLOR_WHITE;
+        cecho "--------------------------------------------------------------------------" $COLOR_WHITE;
+        cecho "$SERVER_VHOST" $COLOR_WHITE;
+    fi
     cecho "--------------------------------------------------------------------------" $COLOR_WHITE;
 
     cecho "\n" $COLOR_WHITE;

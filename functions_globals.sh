@@ -73,7 +73,7 @@ function information_package () {
     cecho "# ------------------------------------------------------------------------ #" $COLOR_WHITE;
     cecho "#                            SCRIPTS PROJET WEB                            #" $COLOR_WHITE;
     cecho "#                                  ------                                  #" $COLOR_WHITE;
-    cecho "#                                   V1.0                                   #" $COLOR_WHITE;
+    cecho "#                                  v1.0.0                                  #" $COLOR_WHITE;
     cecho "#                                  ------                                  #" $COLOR_WHITE;
     cecho "#                Une expérience innovante proposé par INOUIT               #" $COLOR_WHITE;
     cecho "# ------------------------------------------------------------------------ #" $COLOR_WHITE;
@@ -180,6 +180,10 @@ function get_session_user () {
 # Fonction   : init_global_vars
 # ---------------------------------------------------------------- #
 function init_global_vars () {
+    CHOICE_TECHNOLOGY="typo3";
+    SERVER_NAME="apache2";
+    SERVER_VHOST="";
+
     # ---------------------------------------------------------------- #
     # Init file parameters
     # ---------------------------------------------------------------- #
@@ -207,19 +211,21 @@ function create_vhost () {
             cp "$PATH_REPO_SCRIPT/skeletons/$SERVER_NAME/skeleton_$TECHNOLOGY_LOW_CASE.local.com" $CREATE_PROJECT_VIRTUAL_HOST;
             sed -i "s/email_server_admin/$EMAIL_SERVER_ADMIN/g" $CREATE_PROJECT_VIRTUAL_HOST;
             sed -i "s/project_domain/$CREATE_PROJECT_DOMAIN/g" $CREATE_PROJECT_VIRTUAL_HOST;
-            sed -i "s/project_name/$CREATE_PROJECT_NAME/g" $CREATE_PROJECT_VIRTUAL_HOST;
+            sed -i "s/project_name/$CREATE_PROJECT_FOLDER/g" $CREATE_PROJECT_VIRTUAL_HOST;
             CREATE_PROJECT_PATH_SLASH=`echo $CREATE_PROJECT_PATH | sed 's/\//\\\\\//g'`;
             sed -i "s/path_project_folder/$CREATE_PROJECT_PATH_SLASH/g" $CREATE_PROJECT_VIRTUAL_HOST;
             PATH_LOG_FOLDER_SLASH=`echo $PATH_LOG_FOLDER | sed 's/\//\\\\\//g'`;
             sed -i "s/path_log_folder/$PATH_LOG_FOLDER_SLASH/g" $CREATE_PROJECT_VIRTUAL_HOST;
 
+            SERVER_VHOST=$(cat "$CREATE_PROJECT_VIRTUAL_HOST");
+
             # ---------------------------------------------------------------- #
             # Enabled vhost
             # ---------------------------------------------------------------- #
-            cd /etc/apache2/sites-enabled/;
-            ln -s ../sites-available/$CREATE_PROJECT_DOMAIN $CREATE_PROJECT_DOMAIN;
+            cd $SERVER_PATH_SITES_ENABLED;
+            ln -s $SERVER_PATH_SITES_AVAILABLE$CREATE_PROJECT_DOMAIN $CREATE_PROJECT_DOMAIN;
 
-            /etc/init.d/apache2 restart;
+            $SERVER_COMMAND_RESTART;
         ;;
     esac
 
