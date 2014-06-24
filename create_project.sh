@@ -1,25 +1,15 @@
-#!/bin/bash
+#!/bin/sh
 clear;
 
 # ---------------------------------------------------------------- #
 # The library is loaded
 # ---------------------------------------------------------------- #
-PATH_LIBRARY=$(readlink -f functions_globals.sh);
-if [ -e $PATH_LIBRARY ]
-then
-    source $PATH_LIBRARY;
-else
-    echo "Unable to load the following file "$PATH_LIBRARY
-    exit 1;
-fi
+source ./functions_globals.sh;
 
 # ---------------------------------------------------------------- #
 # This place to the project root
 # ---------------------------------------------------------------- #
-PATH_SCRIPT=$(readlink -f create_project.sh);
-strpos "${PATH_SCRIPT}" "/create_project.sh";
-SEARCH_END_CARACTER=$?;
-PATH_REPO_SCRIPT=`echo ${PATH_SCRIPT} | cut -c1-${SEARCH_END_CARACTER}`;
+PATH_REPO_SCRIPT=`pwd -P;`;
 
 cd $PATH_REPO_SCRIPT;
 

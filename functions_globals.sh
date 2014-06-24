@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 clear;
 
 # Colors
@@ -13,30 +13,6 @@ NOT_ERROR=0;
 ERROR_STANDARD=1;
 ERROR_COMMAND_NOT_FOUND=127;
 SLEEP_NUMBER=3;
-
-# ---------------------------------------------------------------- #
-# Fonction   : strpos
-# Parametres
-#   - 1 ($1) : "string"
-#   - 2 ($2) : "string_search"
-# ---------------------------------------------------------------- #
-function strpos () {
-    typeset s1="$1";
-    typeset s2="$2";
-
-    if [[ ${#s2} == 0 ]]; then
-        return 0;
-    fi
-
-    typeset len=${#s1};
-    typeset first=${s1%%${s2}*}x;
-
-    typeset ndx=${#first};
-    if (( ndx > len )); then
-        return 0;
-    fi
-    return $ndx;
-}
 
 # ---------------------------------------------------------------- #
 # Fonction : cecho
@@ -73,7 +49,7 @@ function information_package () {
     cecho "# ------------------------------------------------------------------------ #" $COLOR_WHITE;
     cecho "#                            SCRIPTS WEB PROJECT                           #" $COLOR_WHITE;
     cecho "#                                  ------                                  #" $COLOR_WHITE;
-    cecho "#                                  v1.0.2                                  #" $COLOR_WHITE;
+    cecho "#                                  v1.0.3                                  #" $COLOR_WHITE;
     cecho "#                                  ------                                  #" $COLOR_WHITE;
     cecho "#                An innovative experiment proposed by INOUIT               #" $COLOR_WHITE;
     cecho "# ------------------------------------------------------------------------ #" $COLOR_WHITE;
@@ -128,7 +104,7 @@ function must_be_root () {
 # Fonction : file_parameters_exist
 # ---------------------------------------------------------------- #
 function file_parameters_exist () {
-    PATH_PARAMETERS=$(readlink -f parameters);
+    PATH_PARAMETERS=$PATH_REPO_SCRIPT"/parameters";
 
     if [ -e $PATH_PARAMETERS ]; then
         source $PATH_PARAMETERS;

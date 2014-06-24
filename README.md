@@ -4,7 +4,7 @@ t3Uni14 presentation : Optimize your development time in Typo3 - Installation sc
 
 
 ## Requirements ##
-**A draft typo3 dummy generic should be already installed **  [Inouit/dummyGeneric6](https://github.com/Inouit/dummyGeneric6).
+**A draft typo3 dummy generic should be already installed** [Inouit/dummyGeneric6](https://github.com/Inouit/dummyGeneric6).
 
 
 ## Installation ##
@@ -53,6 +53,7 @@ su root;
 
 
 ## Changelog ##
+- 1.0.3: Fix script for MAC OS
 - 1.0.2: Adding the documentation
 - 1.0.1: Translation of content
 - 1.0.0: Adding script "create propject"
