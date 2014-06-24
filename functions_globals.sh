@@ -71,11 +71,11 @@ function cecho () {
 # ---------------------------------------------------------------- #
 function information_package () {
     cecho "# ------------------------------------------------------------------------ #" $COLOR_WHITE;
-    cecho "#                            SCRIPTS PROJET WEB                            #" $COLOR_WHITE;
+    cecho "#                            SCRIPTS WEB PROJECT                           #" $COLOR_WHITE;
     cecho "#                                  ------                                  #" $COLOR_WHITE;
-    cecho "#                                  v1.0.0                                  #" $COLOR_WHITE;
+    cecho "#                                  v1.0.1                                  #" $COLOR_WHITE;
     cecho "#                                  ------                                  #" $COLOR_WHITE;
-    cecho "#                Une expérience innovante proposé par INOUIT               #" $COLOR_WHITE;
+    cecho "#                An innovative experiment proposed by INOUIT               #" $COLOR_WHITE;
     cecho "# ------------------------------------------------------------------------ #" $COLOR_WHITE;
 }
 
@@ -103,7 +103,7 @@ function errorException () {
 # ---------------------------------------------------------------- #
 function die () {
     cecho "# ------------------------------------------------------------------------ #" $COLOR_YELLOW;
-    cecho "#                                 Aurevoir                                 #" $COLOR_YELLOW;
+    cecho "#                                 Goodbye                                  #" $COLOR_YELLOW;
     cecho "# ------------------------------------------------------------------------ #" $COLOR_YELLOW;
     if [ "$1" ]; then
         cecho "# ------------------------------------------------------------------------ #" $COLOR_YELLOW;
@@ -120,7 +120,7 @@ function die () {
 # ---------------------------------------------------------------- #
 function must_be_root () {
     if [ ! "`id 2>&1 | egrep 'uid=0' | cut -d '(' -f1`" = "uid=0" ]; then
-        errorException $ERROR_STANDARD "Ce script doit être lancé par l'utilisateur 'root'";
+        errorException $ERROR_STANDARD "This script must be run as the user 'root'";
     fi
 }
 
@@ -133,7 +133,7 @@ function file_parameters_exist () {
     if [ -e $PATH_PARAMETERS ]; then
         source $PATH_PARAMETERS;
     else
-        errorException $ERROR_STANDARD "Impossible de charger le fichier suivant $PATH_PARAMETERS";
+        errorException $ERROR_STANDARD "Unable to load the following file $PATH_PARAMETERS";
     fi
 }
 
@@ -142,7 +142,7 @@ function file_parameters_exist () {
 # ---------------------------------------------------------------- #
 function get_session_user () {
     FIND_SESSION=`cat /etc/passwd | grep '1000' | cut -d ":" -f1`;
-    cecho "Entrer du nom de votre session [$FIND_SESSION]: " $COLOR_BLUE -n;
+    cecho "Enter the name of your session [$FIND_SESSION]: " $COLOR_BLUE -n;
 
     read SESSION;
 
@@ -156,13 +156,13 @@ function get_session_user () {
     while [ -z "$SESSION" ] || [ -z "$FIND_USER" ];
     do
         if [ -z "$SESSION" ]; then
-            cecho "Entrer du nom de votre session " $COLOR_BLUE -n;
-            cecho "(OBLIGATOIRE)" $COLOR_RED -n;
+            cecho "Enter the name of your session " $COLOR_BLUE -n;
+            cecho "(MANDATORY)" $COLOR_RED -n;
             cecho ": " $COLOR_BLUE -n;
         elif [ -z "$FIND_USER" ]; then
-            cecho "L'utilisateur "$SESSION" n'existe pas sur ce système." $COLOR_RED;
-            cecho "Entrer du nom de votre session " $COLOR_BLUE -n;
-            cecho "(OBLIGATOIRE)" $COLOR_RED -n;
+            cecho "The user "$SESSION" does not exist on this system." $COLOR_RED;
+            cecho "Enter the name of your session " $COLOR_BLUE -n;
+            cecho "(MANDATORY)" $COLOR_RED -n;
             cecho ": " $COLOR_BLUE -n;
         fi
 

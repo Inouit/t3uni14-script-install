@@ -9,7 +9,7 @@ if [ -e $PATH_LIBRARY ]
 then
     source $PATH_LIBRARY;
 else
-    echo "Impossible de charger le fichier suivant: "$PATH_LIBRARY
+    echo "Unable to load the following file "$PATH_LIBRARY
     exit 1;
 fi
 
@@ -29,7 +29,7 @@ cd $PATH_REPO_SCRIPT;
 function information_script () {
     information_package;
     cecho "# ------------------------------------------------------------------------ #" $COLOR_WHITE;
-    cecho "#                           CREATION D'UN PROJET                           #" $COLOR_WHITE;
+    cecho "#                           CREATION OF A PROJECT                          #" $COLOR_WHITE;
     cecho "# ------------------------------------------------------------------------ #" $COLOR_WHITE;
 
     cecho "\n" $COLOR_WHITE;
@@ -56,16 +56,16 @@ function get_information_project () {
     # ---------------------------------------------------------------- #
     # Project folder name
     # ---------------------------------------------------------------- #
-    cecho "Entrer le nom du dossier " $COLOR_BLUE -n;
-    cecho "([a-zA-Z0-9], en miniscule, sans caractère spéciaux et 13 caractères max)" $COLOR_YELLOW -n;
+    cecho "Enter the folder name " $COLOR_BLUE -n;
+    cecho "([a-zA-Z0-9], lowercase, without special characters and 13 characters maximum)" $COLOR_YELLOW -n;
     cecho ": " $COLOR_BLUE -n;
     read CREATE_PROJECT_FOLDER;
 
     while [ -z $CREATE_PROJECT_FOLDER ] || [ ${#CREATE_PROJECT_FOLDER} -gt 13 ];
     do
-        cecho "Entrer le nom du dossier " $COLOR_BLUE -n;
-        cecho "([a-zA-Z0-9], en miniscule, sans caractère spéciaux et 13 caractères max)" $COLOR_YELLOW -n;
-        cecho "(OBLIGATOIRE)" $COLOR_RED -n;
+        cecho "Enter the folder name " $COLOR_BLUE -n;
+        cecho "([a-zA-Z0-9], lowercase, without special characters and 13 characters maximum)" $COLOR_YELLOW -n;
+        cecho "(MANDATORY)" $COLOR_RED -n;
         cecho ": " $COLOR_BLUE -n;
         read CREATE_PROJECT_FOLDER;
     done
@@ -103,18 +103,18 @@ function valid_information_project () {
     cecho "--                             CONFIRMATION                             --" $COLOR_WHITE;
     cecho "--------------------------------------------------------------------------" $COLOR_WHITE;
     cecho "--------------------------------------------------------------------------" $COLOR_WHITE;
-    cecho " Technologie           : $TECHNOLOGY_LOW_CASE" $COLOR_WHITE;
+    cecho " Technology               : $TECHNOLOGY_LOW_CASE" $COLOR_WHITE;
     cecho "--------------------------------------------------------------------------" $COLOR_WHITE;
-    cecho " Projet dummy :" $COLOR_WHITE;
-    cecho "   - dossier           : $DUMMY_PROJECT_PATH_DUMMY" $COLOR_WHITE;
-    cecho "   - nom de la BDD     : $DUMMY_PROJECT_DB_NAME" $COLOR_WHITE;
-    cecho "   - nom de domaine    : $DUMMY_PROJECT_DOMAIN" $COLOR_WHITE;
+    cecho " Dummy project :" $COLOR_WHITE;
+    cecho "   - folder               : $DUMMY_PROJECT_PATH_DUMMY" $COLOR_WHITE;
+    cecho "   - name of the database : $DUMMY_PROJECT_DB_NAME" $COLOR_WHITE;
+    cecho "   - domain name          : $DUMMY_PROJECT_DOMAIN" $COLOR_WHITE;
     cecho "--------------------------------------------------------------------------" $COLOR_WHITE;
-    cecho " Nouveau projet :" $COLOR_WHITE;
-    cecho "   - dossier           : $CREATE_PROJECT_FOLDER" $COLOR_WHITE;
-    cecho "   - chemin du dossier : $CREATE_PROJECT_PATH" $COLOR_WHITE;
-    cecho "   - nom de la BDD     : $CREATE_PROJECT_DB_NAME" $COLOR_WHITE;
-    cecho "   - nom de domaine    : $CREATE_PROJECT_DOMAIN" $COLOR_WHITE;
+    cecho " New project :" $COLOR_WHITE;
+    cecho "   - folder               : $CREATE_PROJECT_FOLDER" $COLOR_WHITE;
+    cecho "   - folder path          : $CREATE_PROJECT_PATH" $COLOR_WHITE;
+    cecho "   - name of the database : $CREATE_PROJECT_DB_NAME" $COLOR_WHITE;
+    cecho "   - domain name          : $CREATE_PROJECT_DOMAIN" $COLOR_WHITE;
     cecho "--------------------------------------------------------------------------" $COLOR_WHITE;
 
     cecho "\n" $COLOR_WHITE;
@@ -134,7 +134,7 @@ function valid_information_project () {
                 break
             ;;
             *)
-                cecho "Un choix de la liste SVP" $COLOR_RED;
+                cecho "A choice from the list, please" $COLOR_RED;
             ;;
         esac
     done
@@ -211,16 +211,16 @@ function information_project () {
     # Displays project information
     # ---------------------------------------------------------------- #
     cecho "--------------------------------------------------------------------------" $COLOR_WHITE;
-    cecho "--                             INFORMATIONS                             --" $COLOR_WHITE;
+    cecho "--                             INFORMATION                              --" $COLOR_WHITE;
     cecho "--------------------------------------------------------------------------" $COLOR_WHITE;
     cecho "--------------------------------------------------------------------------" $COLOR_WHITE;
-    cecho " Technologie           : $TECHNOLOGY_LOW_CASE" $COLOR_WHITE;
+    cecho " Technology           : $TECHNOLOGY_LOW_CASE" $COLOR_WHITE;
     cecho "--------------------------------------------------------------------------" $COLOR_WHITE;
-    cecho " Nouveau projet :" $COLOR_WHITE;
-    cecho "   - dossier           : $CREATE_PROJECT_FOLDER" $COLOR_WHITE;
-    cecho "   - chemin du dossier : $CREATE_PROJECT_PATH" $COLOR_WHITE;
-    cecho "   - nom de la BDD     : $CREATE_PROJECT_DB_NAME" $COLOR_WHITE;
-    cecho "   - nom de domaine    : $CREATE_PROJECT_DOMAIN" $COLOR_WHITE;
+    cecho " New project :" $COLOR_WHITE;
+    cecho "   - folder           : $CREATE_PROJECT_FOLDER" $COLOR_WHITE;
+    cecho "   - folder path : $CREATE_PROJECT_PATH" $COLOR_WHITE;
+    cecho "   - name of the database     : $CREATE_PROJECT_DB_NAME" $COLOR_WHITE;
+    cecho "   - domain name    : $CREATE_PROJECT_DOMAIN" $COLOR_WHITE;
     if [ ! -z "$SERVER_VHOST" ]; then
         cecho "--------------------------------------------------------------------------" $COLOR_WHITE;
         cecho " VHost " $COLOR_WHITE;
@@ -231,7 +231,7 @@ function information_project () {
 
     cecho "\n" $COLOR_WHITE;
 
-    die "Amusez vous bien :)";
+    die "Have you fun :)";
 }
 
 # ---------------------------------------------------------------- #
