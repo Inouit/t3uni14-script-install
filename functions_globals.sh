@@ -73,7 +73,7 @@ function information_package () {
     cecho "# ------------------------------------------------------------------------ #" $COLOR_WHITE;
     cecho "#                            SCRIPTS WEB PROJECT                           #" $COLOR_WHITE;
     cecho "#                                  ------                                  #" $COLOR_WHITE;
-    cecho "#                                  v1.0.1                                  #" $COLOR_WHITE;
+    cecho "#                                  v1.0.2                                  #" $COLOR_WHITE;
     cecho "#                                  ------                                  #" $COLOR_WHITE;
     cecho "#                An innovative experiment proposed by INOUIT               #" $COLOR_WHITE;
     cecho "# ------------------------------------------------------------------------ #" $COLOR_WHITE;
