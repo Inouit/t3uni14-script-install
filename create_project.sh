@@ -72,7 +72,7 @@ function get_information_project () {
     # ---------------------------------------------------------------- #
     SEARCH_FOLDER_PROJECT=`ls $PATH_WWW_FOLDER/$TECHNOLOGY_LOW_CASE/* | grep $CREATE_PROJECT_FOLDER`;
 
-    SEARCH_VHOST_PROJECT=`ls /etc/apache2/sites-*/* | grep $CREATE_PROJECT_FOLDER`;
+    SEARCH_VHOST_PROJECT=`ls $SERVER_PATH_SITES_AVAILABLE/* | grep $CREATE_PROJECT_FOLDER`;
 
     if [ ! -z "$SEARCH_FOLDER_PROJECT" ] || [ ! -z "$SEARCH_VHOST_PROJECT" ]
     then
@@ -177,7 +177,7 @@ function create_project () {
     # ---------------------------------------------------------------- #
     # Update permission
     # ---------------------------------------------------------------- #
-    chown -R $SESSION:www-data $CREATE_PROJECT_PATH;
+    chown -R $SESSION:$GROUP $CREATE_PROJECT_PATH;
     find $CREATE_PROJECT_PATH -type f -exec /bin/chmod 660 {} \;
     find $CREATE_PROJECT_PATH -type d -exec /bin/chmod 770 {} \;
 

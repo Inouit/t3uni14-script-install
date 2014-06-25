@@ -9,6 +9,7 @@ SERVER_COMMAND_RESTART="/etc/init.d/apache2 restart"
 EMAIL_SERVER_ADMIN="network@local.com"
 PATH_WWW_FOLDER="/var/www/"
 PATH_LOG_FOLDER="/var/log/apache2/"
+$GROUP="www-data"
 
 # Information for technologie
 PREFIX_DB="local"

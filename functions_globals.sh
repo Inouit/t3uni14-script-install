@@ -117,37 +117,17 @@ function file_parameters_exist () {
 # Fonction : get_session_user
 # ---------------------------------------------------------------- #
 function get_session_user () {
-    FIND_SESSION=`cat /etc/passwd | grep '1000' | cut -d ":" -f1`;
+    FIND_SESSION=$USER;
     cecho "Enter the name of your session [$FIND_SESSION]: " $COLOR_BLUE -n;
 
     read SESSION;
 
     if [ ! -z "$SESSION" ]; then
-        findUser=`cat /etc/passwd | grep $SESSION`;
+        findUser=$USER;
     else
         SESSION=$FIND_SESSION
-        FIND_USER=`cat /etc/passwd | grep $SESSION`;
+        FIND_USER=$USER;
     fi
-
-    while [ -z "$SESSION" ] || [ -z "$FIND_USER" ];
-    do
-        if [ -z "$SESSION" ]; then
-            cecho "Enter the name of your session " $COLOR_BLUE -n;
-            cecho "(MANDATORY)" $COLOR_RED -n;
-            cecho ": " $COLOR_BLUE -n;
-        elif [ -z "$FIND_USER" ]; then
-            cecho "The user "$SESSION" does not exist on this system." $COLOR_RED;
-            cecho "Enter the name of your session " $COLOR_BLUE -n;
-            cecho "(MANDATORY)" $COLOR_RED -n;
-            cecho ": " $COLOR_BLUE -n;
-        fi
-
-        read SESSION;
-
-        if [ ! -z "$SESSION" ]; then
-            FIND_USER=`cat /etc/passwd | grep $SESSION`;
-        fi
-    done
 
     cecho "\n" $COLOR_WHITE;
 }
@@ -179,7 +159,7 @@ function create_vhost () {
 
     case $SERVER_NAME in
         apache2)
-            local CREATE_PROJECT_VIRTUAL_HOST="/etc/$SERVER_NAME/sites-available/$CREATE_PROJECT_DOMAIN";
+            local CREATE_PROJECT_VIRTUAL_HOST="$SERVER_PATH_SITES_AVAILABLE$CREATE_PROJECT_DOMAIN";
 
             # ---------------------------------------------------------------- #
             # Create Vhost
