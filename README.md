@@ -35,13 +35,14 @@ EMAIL_SERVER_ADMIN="network@local.com"
 PATH_WWW_FOLDER="/var/www/"
 PATH_LOG_FOLDER="/var/log/apache2/"
 
-# Information for technologie
+# Domain
 PREFIX_DB="local"
 SUFFIX_URL="local.com"
-    # TYPO3
-TYPO3_PATH_DUMMY="/var/www/typo3/dummy/"
-TYPO3_DB_NAME="local_typo3_dummy"
-TYPO3_DOMAIN="dummy.local.com"
+
+# Dummy
+DUMMY_PATH="/var/www/typo3/dummy/"
+DUMMY_DB_NAME="local_typo3_dummy"
+DUMMY_DOMAIN="dummy.local.com"
 ```
  - Run the script with root privileges
 ```

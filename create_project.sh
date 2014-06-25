@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 clear;
 
 # ---------------------------------------------------------------- #
@@ -18,9 +18,9 @@ cd $PATH_REPO_SCRIPT;
 # ---------------------------------------------------------------- #
 function information_script () {
     information_package;
-    cecho "# ------------------------------------------------------------------------ #" $COLOR_WHITE;
-    cecho "#                           CREATION OF A PROJECT                          #" $COLOR_WHITE;
-    cecho "# ------------------------------------------------------------------------ #" $COLOR_WHITE;
+    cecho "# ----------------------------------------------------------------- #" $COLOR_WHITE;
+    cecho "#                           CREATE PROJECT                          #" $COLOR_WHITE;
+    cecho "# ----------------------------------------------------------------- #" $COLOR_WHITE;
 
     cecho "\n" $COLOR_WHITE;
 }
@@ -34,9 +34,9 @@ function get_information_project () {
     # ---------------------------------------------------------------- #
     case $CHOICE_TECHNOLOGY in
         typo3)
-            DUMMY_PROJECT_PATH_DUMMY=$TYPO3_PATH_DUMMY;
-            DUMMY_PROJECT_DB_NAME=$TYPO3_DB_NAME;
-            DUMMY_PROJECT_DOMAIN=$TYPO3_DOMAIN;
+            DUMMY_PROJECT_PATH_DUMMY=$DUMMY_PATH;
+            DUMMY_PROJECT_DB_NAME=$DUMMY_DB_NAME;
+            DUMMY_PROJECT_DOMAIN=$DUMMY_DOMAIN;
         ;;
     esac
 
@@ -76,7 +76,7 @@ function get_information_project () {
 
     if [ ! -z "$SEARCH_FOLDER_PROJECT" ] || [ ! -z "$SEARCH_VHOST_PROJECT" ]
     then
-        errorException $ERROR_STANDARD "Le projet semble déjà existé.";
+        errorException $ERROR_STANDARD "Project already exists.";
     fi
 
     cecho "\n" $COLOR_WHITE;
@@ -112,14 +112,14 @@ function valid_information_project () {
     # ---------------------------------------------------------------- #
     # Validation information for the new project
     # ---------------------------------------------------------------- #
-    cecho "Est-ce correct ?" $COLOR_BLUE;
-    select choix_correct_1 in oui non
+    cecho "Is that right?" $COLOR_BLUE;
+    select choix_correct_1 in yes no
     do
         case $choix_correct_1 in
-            oui)
+            yes)
                 break
             ;;
-            non)
+            no)
                 die;
                 break
             ;;
@@ -151,12 +151,18 @@ function create_project () {
     # ---------------------------------------------------------------- #
     # Dump mysql DB dummy
     # ---------------------------------------------------------------- #
-    DUMMY_PROJECT_DB_NAME_TMP="tmp_create_project_$DUMMY_PROJECT_DB_NAME.sql";
+    DUMMY_PROJECT_DB_NAME_TMP="db_$CREATE_PROJECT_DB_NAME.sql";
     mysqldump -u $MYSQL_LOGIN -p$MYSQL_PASSWORD $DUMMY_PROJECT_DB_NAME > $DUMMY_PROJECT_DB_NAME_TMP;
 
     # ---------------------------------------------------------------- #
     # Domain replaces dummy
     # ---------------------------------------------------------------- #
+    sed -i "s/$DUMMY_PROJECT_DB_NAME/$CREATE_PROJECT_DB_NAME/g" typo3conf/AdditionalConfiguration.php
+    sed -i "s/$DUMMY_PROJECT_DB_NAME/$CREATE_PROJECT_DB_NAME/g" typo3conf/AdditionalConfiguration_dist.php
+    sed -i "s/$DUMMY_PROJECT_DOMAIN/$CREATE_PROJECT_DOMAIN/g" typo3conf/ext/skin/ext_typoscript_constants_local.txt
+    sed -i "s/$DUMMY_PROJECT_DOMAIN/$CREATE_PROJECT_DOMAIN/g" typo3conf/ext/skin/ext_typoscript_constants_local_dist.txt
+    sed -i "s/$DUMMY_PROJECT_DOMAIN/$CREATE_PROJECT_DOMAIN/g" typo3conf/ext/skin/Classes/Utility/realurl_local.php
+    sed -i "s/$DUMMY_PROJECT_DOMAIN/$CREATE_PROJECT_DOMAIN/g" typo3conf/ext/skin/Classes/Utility/realurl_local_dist.php
     sed -i "s/$DUMMY_PROJECT_DOMAIN/$CREATE_PROJECT_DOMAIN/g" ./$DUMMY_PROJECT_DB_NAME_TMP;
 
     # ---------------------------------------------------------------- #
@@ -169,10 +175,6 @@ function create_project () {
     # ---------------------------------------------------------------- #
     mysql -u $MYSQL_LOGIN -p$MYSQL_PASSWORD $CREATE_PROJECT_DB_NAME < $DUMMY_PROJECT_DB_NAME_TMP;
 
-    # ---------------------------------------------------------------- #
-    # Delete DB dummy temporary
-    # ---------------------------------------------------------------- #
-    rm -rf $DUMMY_PROJECT_DB_NAME_TMP;
 
     # ---------------------------------------------------------------- #
     # Update permission
@@ -221,7 +223,7 @@ function information_project () {
 
     cecho "\n" $COLOR_WHITE;
 
-    die "Have you fun :)";
+    die "Have fun :)";
 }
 
 # ---------------------------------------------------------------- #

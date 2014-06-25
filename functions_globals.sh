@@ -46,13 +46,13 @@ function cecho () {
 # Fonction : information_package
 # ---------------------------------------------------------------- #
 function information_package () {
-    cecho "# ------------------------------------------------------------------------ #" $COLOR_WHITE;
-    cecho "#                            SCRIPTS WEB PROJECT                           #" $COLOR_WHITE;
-    cecho "#                                  ------                                  #" $COLOR_WHITE;
-    cecho "#                                  v1.0.3                                  #" $COLOR_WHITE;
-    cecho "#                                  ------                                  #" $COLOR_WHITE;
-    cecho "#                An innovative experiment proposed by INOUIT               #" $COLOR_WHITE;
-    cecho "# ------------------------------------------------------------------------ #" $COLOR_WHITE;
+    cecho "# ---------------------------------------------------------------- #" $COLOR_WHITE;
+    cecho "#                         SCRIPTS WEB PROJECT                       #" $COLOR_WHITE;
+    cecho "#                               ------                              #" $COLOR_WHITE;
+    cecho "#                               v1.0.3                              #" $COLOR_WHITE;
+    cecho "#                               ------                              #" $COLOR_WHITE;
+    cecho "#             An innovative experiment proposed by INOUIT           #" $COLOR_WHITE;
+    cecho "# ---------------------------------------------------------------- #" $COLOR_WHITE;
 }
 
 # ---------------------------------------------------------------- #
@@ -118,9 +118,14 @@ function file_parameters_exist () {
 # ---------------------------------------------------------------- #
 function get_session_user () {
     FIND_SESSION=$USER;
-    cecho "Enter the name of your session [$FIND_SESSION]: " $COLOR_BLUE -n;
 
+    cecho "Enter the name of your session: " $COLOR_BLUE -n;
     read SESSION;
+    while [ -z "$SESSION" ];
+    do
+        cecho "Enter the name of your session: " $COLOR_BLUE -n;
+        read SESSION;
+    done
 
     if [ ! -z "$SESSION" ]; then
         findUser=$USER;
