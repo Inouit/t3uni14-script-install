@@ -146,7 +146,7 @@ function create_project () {
     # ---------------------------------------------------------------- #
     # Copy of the dummy
     # ---------------------------------------------------------------- #
-    rsync -avzP $DUMMY_PROJECT_PATH_DUMMY $CREATE_PROJECT_PATH;
+    rsync -avzP --exclude 'typo3temp/*'  $DUMMY_PROJECT_PATH_DUMMY $CREATE_PROJECT_PATH;
 
     # ---------------------------------------------------------------- #
     # Dump mysql DB dummy
