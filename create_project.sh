@@ -157,13 +157,23 @@ function create_project () {
     # ---------------------------------------------------------------- #
     # Domain replaces dummy
     # ---------------------------------------------------------------- #
-    sed -i "s/$DUMMY_PROJECT_DB_NAME/$CREATE_PROJECT_DB_NAME/g" typo3conf/AdditionalConfiguration.php
-    sed -i "s/$DUMMY_PROJECT_DB_NAME/$CREATE_PROJECT_DB_NAME/g" typo3conf/AdditionalConfiguration_dist.php
-    sed -i "s/$DUMMY_PROJECT_DOMAIN/$CREATE_PROJECT_DOMAIN/g" typo3conf/ext/skin/ext_typoscript_constants_local.txt
-    sed -i "s/$DUMMY_PROJECT_DOMAIN/$CREATE_PROJECT_DOMAIN/g" typo3conf/ext/skin/ext_typoscript_constants_local_dist.txt
-    sed -i "s/$DUMMY_PROJECT_DOMAIN/$CREATE_PROJECT_DOMAIN/g" typo3conf/ext/skin/Classes/Utility/realurl_local.php
-    sed -i "s/$DUMMY_PROJECT_DOMAIN/$CREATE_PROJECT_DOMAIN/g" typo3conf/ext/skin/Classes/Utility/realurl_local_dist.php
-    sed -i "s/$DUMMY_PROJECT_DOMAIN/$CREATE_PROJECT_DOMAIN/g" ./$DUMMY_PROJECT_DB_NAME_TMP;
+    if [ "$(uname)" == "Darwin" ];
+    then
+      sed -i '' -e "s/$DUMMY_PROJECT_DB_NAME/$CREATE_PROJECT_DB_NAME/g" typo3conf/AdditionalConfiguration.php
+      sed -i '' -e "s/$DUMMY_PROJECT_DB_NAME/$CREATE_PROJECT_DB_NAME/g" typo3conf/AdditionalConfiguration_dist.php
+      sed -i '' -e "s/$DUMMY_PROJECT_DOMAIN/$CREATE_PROJECT_DOMAIN/g" typo3conf/ext/skin/ext_typoscript_constants_local.txt
+      sed -i '' -e "s/$DUMMY_PROJECT_DOMAIN/$CREATE_PROJECT_DOMAIN/g" typo3conf/ext/skin/ext_typoscript_constants_local_dist.txt
+      sed -i '' -e "s/$DUMMY_PROJECT_DOMAIN/$CREATE_PROJECT_DOMAIN/g" typo3conf/ext/skin/Classes/Utility/realurl_local.php
+      sed -i '' -e "s/$DUMMY_PROJECT_DOMAIN/$CREATE_PROJECT_DOMAIN/g" typo3conf/ext/skin/Classes/Utility/realurl_local_dist.php
+    else
+      sed -i "s/$DUMMY_PROJECT_DB_NAME/$CREATE_PROJECT_DB_NAME/g" typo3conf/AdditionalConfiguration.php
+      sed -i "s/$DUMMY_PROJECT_DB_NAME/$CREATE_PROJECT_DB_NAME/g" typo3conf/AdditionalConfiguration_dist.php
+      sed -i "s/$DUMMY_PROJECT_DOMAIN/$CREATE_PROJECT_DOMAIN/g" typo3conf/ext/skin/ext_typoscript_constants_local.txt
+      sed -i "s/$DUMMY_PROJECT_DOMAIN/$CREATE_PROJECT_DOMAIN/g" typo3conf/ext/skin/ext_typoscript_constants_local_dist.txt
+      sed -i "s/$DUMMY_PROJECT_DOMAIN/$CREATE_PROJECT_DOMAIN/g" typo3conf/ext/skin/Classes/Utility/realurl_local.php
+      sed -i "s/$DUMMY_PROJECT_DOMAIN/$CREATE_PROJECT_DOMAIN/g" typo3conf/ext/skin/Classes/Utility/realurl_local_dist.php
+      sed -i "s/$DUMMY_PROJECT_DOMAIN/$CREATE_PROJECT_DOMAIN/g" ./$DUMMY_PROJECT_DB_NAME_TMP;
+    fi
 
     # ---------------------------------------------------------------- #
     # Create DB

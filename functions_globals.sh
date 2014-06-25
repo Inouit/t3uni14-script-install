@@ -170,13 +170,31 @@ function create_vhost () {
             # Create Vhost
             # ---------------------------------------------------------------- #
             cp "$PATH_REPO_SCRIPT/skeletons/$SERVER_NAME/skeleton_$TECHNOLOGY_LOW_CASE.local.com" $CREATE_PROJECT_VIRTUAL_HOST;
-            sed -i "s/email_server_admin/$EMAIL_SERVER_ADMIN/g" $CREATE_PROJECT_VIRTUAL_HOST;
-            sed -i "s/project_domain/$CREATE_PROJECT_DOMAIN/g" $CREATE_PROJECT_VIRTUAL_HOST;
-            sed -i "s/project_name/$CREATE_PROJECT_FOLDER/g" $CREATE_PROJECT_VIRTUAL_HOST;
+            if [ "$(uname)" == "Darwin" ];
+            then
+              sed -i '' -e "s/email_server_admin/$EMAIL_SERVER_ADMIN/g" $CREATE_PROJECT_VIRTUAL_HOST;
+              sed -i '' -e "s/project_domain/$CREATE_PROJECT_DOMAIN/g" $CREATE_PROJECT_VIRTUAL_HOST;
+              sed -i '' -e "s/project_name/$CREATE_PROJECT_FOLDER/g" $CREATE_PROJECT_VIRTUAL_HOST;
+            else
+              sed -i "s/email_server_admin/$EMAIL_SERVER_ADMIN/g" $CREATE_PROJECT_VIRTUAL_HOST;
+              sed -i "s/project_domain/$CREATE_PROJECT_DOMAIN/g" $CREATE_PROJECT_VIRTUAL_HOST;
+              sed -i "s/project_name/$CREATE_PROJECT_FOLDER/g" $CREATE_PROJECT_VIRTUAL_HOST;
+            fi
             CREATE_PROJECT_PATH_SLASH=`echo $CREATE_PROJECT_PATH | sed 's/\//\\\\\//g'`;
-            sed -i "s/path_project_folder/$CREATE_PROJECT_PATH_SLASH/g" $CREATE_PROJECT_VIRTUAL_HOST;
+            if [ "$(uname)" == "Darwin" ];
+            then
+              sed -i '' -e "s/path_project_folder/$CREATE_PROJECT_PATH_SLASH/g" $CREATE_PROJECT_VIRTUAL_HOST;
+            else
+              sed -i "s/path_project_folder/$CREATE_PROJECT_PATH_SLASH/g" $CREATE_PROJECT_VIRTUAL_HOST;
+            fi
             PATH_LOG_FOLDER_SLASH=`echo $PATH_LOG_FOLDER | sed 's/\//\\\\\//g'`;
-            sed -i "s/path_log_folder/$PATH_LOG_FOLDER_SLASH/g" $CREATE_PROJECT_VIRTUAL_HOST;
+            if [ "$(uname)" == "Darwin" ];
+            then
+              sed -i '' -e "s/path_log_folder/$PATH_LOG_FOLDER_SLASH/g" $CREATE_PROJECT_VIRTUAL_HOST;
+            else
+              sed -i "s/path_log_folder/$PATH_LOG_FOLDER_SLASH/g" $CREATE_PROJECT_VIRTUAL_HOST;
+            fi
+
 
             SERVER_VHOST=$(cat "$CREATE_PROJECT_VIRTUAL_HOST");
 
